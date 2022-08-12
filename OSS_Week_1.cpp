@@ -65,11 +65,14 @@ void trie::insert_data(std::string data)
 			continue;
 		}
 		bool if_there = false;
-		size_t store_index = 0;
+		size_t stored_index = 0;
 		for (size_t j = 0; j < size_next; j++)
 		{
 			if_there = (data[i] == temp->next[j]->data);
-			store_index = j * (if_there);
+			stored_index = j * (if_there);
+			if (if_there) {
+				break;
+			}
 		}
 		if (!if_there) {
 			trie_node* newnode = new trie_node(data[i], end_parser);
@@ -78,8 +81,8 @@ void trie::insert_data(std::string data)
 			continue;
 		}
 		else {
-			temp->next[store_index]->end = end_parser;
-			temp = temp->next[store_index];
+			temp->next[stored_index]->end = 1*(temp->next[stored_index]->end) + end_parser*(!(temp->next[stored_index]->end));
+			temp = temp->next[stored_index];
 			continue;
 		}
 	}
